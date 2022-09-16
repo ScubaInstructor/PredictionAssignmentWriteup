@@ -88,12 +88,12 @@ dt_training_train <- dt_training[dt_training_partition, ]
 dt_training_test  <- dt_training[-dt_training_partition, ]
 ```
 
-Ensure reproducability
+Ensure reproducibility
 ```{r}
 set.seed(8498)
 ```
 
-I am going to use three models mentioned in the lecture from trees, random forest and boosting.
+I am going to use three models mentioned in the lecture from trees, random forest and boosting. For each model, I apply cross-validation (fitControl).
 
 ```{r}
 fitControl <- trainControl(method='cv', number = 3)
@@ -104,6 +104,15 @@ model_rf <- train(classe ~ ., data=dt_training_train, trControl=fitControl, meth
 ```
 
 Assessment
+
+Out-of-sample error
+```{r}
+model_rpart$finalModel
+model_gbm$finalModel
+model_rf$finalModel
+```
+
+Random Forest has the highest accuracy.
 
 Check the accuracy with the training data test set (30% not used for training)
 
